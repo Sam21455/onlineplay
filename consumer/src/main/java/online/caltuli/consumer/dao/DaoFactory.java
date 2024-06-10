@@ -37,8 +37,7 @@ public class DaoFactory {
                         "jdbc:mysql://localhost:3306/onlineplay",
                         "root",
                         // "Lips*Jordan#77"
-                        // "password"
-                        "Premakumar_24"
+                        "password"
                     );
             } catch (ClassNotFoundException e) {
                 throw new DatabaseConnectionException("The class com.mysql.cj.jdbc.Driver is not found.");
