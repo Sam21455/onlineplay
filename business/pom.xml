@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>online.caltuli</groupId>
+    <artifactId>onlineplay</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>online.caltuli</groupId>
+  <artifactId>business</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>business</name>
+  <url>http://maven.apache.org</url>
+
+  <description>
+    The business module serves as the core layer for handling business logic
+    and operations in the application. It encompasses the management of user
+    data, authentication processes, user connections, and any other critical
+    business functions necessary for the application's operation. This module
+    interacts with the data access layer to retrieve, update, and persist data,
+    ensuring that business rules and validations are applied accordingly.
+    It's designed to encapsulate the application's business rules, making it
+    easier to manage, test, and modify business processes independently from
+    other parts of the system. By centralizing business logic within this
+    module, the application maintains a clean separation of concerns, promoting
+    reusability, scalability, and maintainability.
+  </description>
+
+  <!-- =============================================================== -->
+  <!-- Dependency Management -->
+  <!-- =============================================================== -->
+  <dependencies>
+    <!-- ===== Modules ===== -->
+    <dependency>
+      <groupId>online.caltuli</groupId>
+      <artifactId>consumer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>online.caltuli</groupId>
+      <artifactId>model</artifactId>
+    </dependency>
+    <!-- ===== Third-party Libraries ===== -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-inline</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-web-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.weld.servlet</groupId>
+      <artifactId>weld-servlet-shaded</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+      </plugin>
+      <!-- monitoring coverage code -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

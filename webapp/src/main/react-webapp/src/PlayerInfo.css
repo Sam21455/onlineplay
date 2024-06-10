@@ -1,0 +1,37 @@
+/* PlayerInfo.css */
+
+.player-info-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.player-square {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid grey;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, background-color 0.2s, border 0.2s;
+}
+
+.player-square:hover {
+  transform: scale(1.05);
+}
+
+.player-square.active-turn {
+  background-color: rgb(0, 153, 255); /* Mettre en surbrillance le carré du joueur actif */
+  border: 2px solid grey; /* Couleur de bordure distinctive */
+  transform: scale(1.1);
+}
+
+.player-name {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  word-wrap: break-word;
+}

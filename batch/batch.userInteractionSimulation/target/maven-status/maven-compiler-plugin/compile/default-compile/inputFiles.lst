@@ -1,0 +1,16 @@
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/BatchServer.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/GameWebSocketClient.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/clients/HttpClientSSLContext.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CoordinatesKeyDeserializer.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomColorsGridDeserializer.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomCoordinatesDeserializer.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/CustomGameDeserializer.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/GameContainer.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/jsonUtils/UserContainer.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/AiUser.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/ColorsGridUpdateDescription.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/DummyUser.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/GameEvent.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/GameStateUpdateDescription.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/interfaces/GameObserver.java
+/home/samya/Documents/L2 - RÉALISATION DE PROGRAMME/annexe/caltuli/batch/batch.userInteractionSimulation/src/main/java/online/caltuli/batch/userInteractionSimulation/virtualUsers/interfaces/UpdateDescription.java
