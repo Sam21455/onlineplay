@@ -17,6 +17,3 @@ const PlayerInfo = ({ player1, player2, isPlayer1Turn, isPlayer2Turn }) => {
 };
 
 export default PlayerInfo;
-
-
-// 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

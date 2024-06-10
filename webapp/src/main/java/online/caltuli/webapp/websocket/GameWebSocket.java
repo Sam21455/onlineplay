@@ -140,7 +140,9 @@ public class GameWebSocket {
         switch (updateType) {
             case "colorsGrid":
                 int playedColumn = 0;
+
                 JsonValue columnValue = jsonMessage.get("column");
+                
                 if (columnValue != null && columnValue.getValueType() == JsonValue.ValueType.NUMBER) {
                     playedColumn = jsonMessage.getInt("column");
                 } else if (columnValue != null && columnValue.getValueType() == JsonValue.ValueType.STRING) {
@@ -268,6 +270,7 @@ public class GameWebSocket {
                                     sendText(
                                         moveJson.toString()
                                     );
+                            // envoie la liste des coups joués à react
                             webSocketSession
                                 .getBasicRemote()
                                 .sendText(
@@ -288,7 +291,6 @@ public class GameWebSocket {
                         }
                     }
                 }
-
                 break;
             default:
                 logger.warn("Received an unsupported update type: " + updateType);

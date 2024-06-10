@@ -15,10 +15,9 @@ function App() {
   useEffect(() => {
     if (!window.gameId) return;
 
-    // const newClient = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
+    const newClient = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
     // const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_samya/game/${window.gameId}`);
-    const newClient = new W3CWebSocket(`wss://caltuli.online/webapp/game/${window.gameId}`);
-
+    // const newClient = new W3CWebSocket(`wss://caltuli.online/webapp/game/${window.gameId}`);
 
     setClient(newClient);
 
@@ -55,18 +54,17 @@ function App() {
           }
         }));
       }
+
       if (data.update === "move") {
         // Ajout d'un nouveau mouvement à l'historique
         setMoves(prevMoves => [...prevMoves, data]);
-        console.log("++++++> ", data);
-
+        console.log("move => ", data);
       }
 
       if (data.update === "moveHistory") {
         setMoves(data.moves); // Mettre à jour les mouvements avec l'historique reçu du serveur
-        console.log("-----> ", data.moves);
+        console.log("moveHistory => ", data.moves);
       }
-
     };
 
     newClient.onclose = () => {
@@ -123,10 +121,13 @@ function App() {
   // Extraire les noms des joueurs
   const gameStateString = JSON.stringify(game);
   const parsedGameState = JSON.parse(gameStateString);
+  const player1Name = parsedGameState.firstPlayer ? parsedGameState.firstPlayer.username : 'Waiting for 1st player ... ';
+  const player2Name = parsedGameState.secondPlayer ? parsedGameState.secondPlayer.username : 'Waiting for 2nd player ... ';
 
   // Déterminer si c'est le tour du joueur 1 ou du joueur 2
   const isPlayer1Turn = game.gameState === 'WAIT_FIRST_PLAYER_MOVE';
   const isPlayer2Turn = game.gameState === 'WAIT_SECOND_PLAYER_MOVE';
+
 
   return (
     <div className="App">
@@ -137,8 +138,8 @@ function App() {
 
       {/* Affichage des joueurs dans des carrés */}
       <PlayerInfo
-        player1={parsedGameState.firstPlayer.username}
-        player2={parsedGameState.secondPlayer.username}
+        player1={player1Name}
+        player2={player2Name}
         isPlayer1Turn={isPlayer1Turn}
         isPlayer2Turn={isPlayer2Turn}
       />

@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e868744-9572-4a05-bcd5-9d384bde377b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/MovesDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/interfaces/MovesDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/batch.ai/target/batch.ai-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.ai/target/batch.ai-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/batch.ai/target/classes/online/caltuli/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.ai/target/classes/online/caltuli/App.class" afterDir="false" />
@@ -33,15 +31,11 @@
       <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/virtualUsers/interfaces/GameObserver.class" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/virtualUsers/interfaces/GameObserver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/virtualUsers/interfaces/UpdateDescription.class" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/classes/online/caltuli/batch/userInteractionSimulation/virtualUsers/interfaces/UpdateDescription.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/original-batch.userInteractionSimulation-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/batch/batch.userInteractionSimulation/target/original-batch.userInteractionSimulation-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/GameManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/business/src/main/java/online/caltuli/business/UserManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/DaoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/DaoFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/UserConnectionsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/UserConnectionsDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/UsersDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/consumer/src/main/java/online/caltuli/consumer/dao/implementations/UsersDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/src/main/java/online/caltuli/model/Move.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/websocket/GameWebSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/java/online/caltuli/webapp/websocket/GameWebSocket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/PlayerInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/react-webapp/src/PlayerInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/src/main/resources/maven.properties" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/main/resources/maven.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
