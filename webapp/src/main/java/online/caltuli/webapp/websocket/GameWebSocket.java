@@ -83,37 +83,10 @@ public class GameWebSocket {
         sessions.get(gameKey).add(session);
 
         logger.info("sessions: " + sessions);
-
-        // sendMoveHistory(session, gameKey);
     }
 
 
-    // private void sendMoveHistory(Session session, int gameKey) {
-    //         try {
-    //             List<Move> moveHistory = gameManager.getMovesForGame(gameKey);
-    //             JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
 
-    //             for (Move move : moveHistory) {
-    //                 JsonObject moveJson = Json.createObjectBuilder()
-    //                         .add("id", move.getId())
-    //                         .add("gameId", move.getGameId())
-    //                         .add("userId", move.getUserId())
-    //                         .add("number", move.getNumber())
-    //                         .add("playedColumn", move.getPlayedColumn())
-    //                         .build();
-    //                 jsonArrayBuilder.add(moveJson);
-    //             }
-
-    //             JsonObject message = Json.createObjectBuilder()
-    //                     .add("update", "moveHistory")
-    //                     .add("moves", jsonArrayBuilder.build())
-    //                     .build();
-
-    //             session.getBasicRemote().sendText(message.toString());
-    //         } catch (IOException | BusinessException e) {
-    //             logger.error("Failed to send move history", e);
-    //         }
-    // }
 
 
     @OnMessage
@@ -139,10 +112,10 @@ public class GameWebSocket {
 
         switch (updateType) {
             case "colorsGrid":
+
                 int playedColumn = 0;
 
                 JsonValue columnValue = jsonMessage.get("column");
-                
                 if (columnValue != null && columnValue.getValueType() == JsonValue.ValueType.NUMBER) {
                     playedColumn = jsonMessage.getInt("column");
                 } else if (columnValue != null && columnValue.getValueType() == JsonValue.ValueType.STRING) {
@@ -154,19 +127,20 @@ public class GameWebSocket {
                     }
                 }
 
+                Coordinates coordinatesPlayed = null;
+                try {
+                    coordinatesPlayed = gameManager.playMove(playedColumn);
+                } catch (BusinessException e) {
+                    return;
+                }
+
+
                 // Récupérer la liste des coups joués pour ce jeu
                 List<Move> moveHistory = null;
                 try {
                     moveHistory = gameManager.getMovesForGame(game.getId());
                 } catch (BusinessException e) {
                     logger.error("Failed to get move history from database", e);
-                    return;
-                }
-
-                Coordinates coordinatesPlayed = null;
-                try {
-                    coordinatesPlayed = gameManager.playMove(playedColumn);
-                } catch (BusinessException e) {
                     return;
                 }
 
@@ -236,20 +210,6 @@ public class GameWebSocket {
                                 .add("newValue", newGameStateUpdateJson)
                                 .build();
 
-                // to debug by diplaying EvolutiveGridParser on front-end
-                /*
-                JsonObject newGameManagerUpdateJsonObject = null;
-                String newGameManagerUpdateJson =
-                        JsonUtil.convertToJson(
-                                gameManager
-                        );
-                newGameManagerUpdateJsonObject =
-                        Json.createObjectBuilder()
-                                .add("update", "gameManager")
-                                .add("newValue", newGameManagerUpdateJson)
-                                .build();
-
-                 */
 
                 for (Session webSocketSession : GameWebSocket.getSessionsRelatedToGameId(game.getId())) {
                     if (webSocketSession != null && webSocketSession.isOpen()) {

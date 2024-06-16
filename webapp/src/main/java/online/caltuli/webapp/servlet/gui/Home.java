@@ -1,55 +1,3 @@
-/**
- * FILE: Home.java
- * PURPOSE: Servlet which serves home.jsp, the main landing page for the Onlineplay web
- * application.
- * FUNCTIONNALITIES AFFORDED VIA THE SERVED JSP PAGE home.jsp:
- *   1) Displays information about currently authenticated users, users awaiting opponents
- *      for games, and ongoing games. These lists are updated in real-time through GET
- *      requests to the UserActivities servlet, which fetches updated data every 5 seconds.
- *   2) Provides links to other pages of the web application for user account creation,
- *      authentication, and logging out.
- *   3) Offers external links: a GitHub link to the project's source code and a link to
- *      the project's documentation site.
- *   4) Supports actions via POST requests: for authenticated users to join games proposed
- *      by others or to propose new games.
- *   5) Enables interactive gameplay through WebSockets and the React library: users can
- *      view and play Power 4 games interactively if they are authenticated and involved
- *      in a game.
- * AUTHOR: Sylvain Labopin
- * SERVLET ATTRIBUTES USED:
- *   - authenticatedUsers: List of authenticated users formatted for the client.
- *   - waitingToPlayUsers: List of users waiting for game matchups.
- *   - games: Summary information of ongoing games.
- *   - game, gameId, playerId: Game details serialized to JSON and IDs used to initialize
- *     React components for the user interface.
- * POST REQUEST PARAMETERS:
- *   - "action": Determines the type of operation to execute ('new_game' or 'play_with').
- *   - "user_id": Specifies the ID of the user to join in a game (used with 'play_with').
-* ICI
- * WebSocket interactions:
- *   - Uses GameWebSocket to communicate state changes to the game and user status through
- *     WebSocket sessions tied to each game's ID.
- *   - Manages a map of game IDs to WebSocket sessions, enabling updates to specific games
- *     and players.
- *
- * Session variables:
- *   - userConnection: Maintains the user's connection state and identity.
- *   - user: Stores authenticated user data during a session.
- *
- * Request handling:
- *   - doGet: Prepares attributes necessary for rendering the homepage UI in React.
- *   - doPost: Processes user inputs from form submissions, updates game states and
- *     communicates these changes via WebSocket to the client.
- *
- * Dependencies:
- *   - PlayerManager: Manages user and game data transactions.
- *   - Logger: Logs activities and errors for monitoring.
- *   - HttpSession, HttpServletRequest, HttpServletResponse: Manages sessions and
- *     handles HTTP transactions.
- *
- * Author: Sylvain Labopin
- */
-
 package online.caltuli.webapp.servlet.gui;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -254,6 +202,7 @@ public class Home extends HttpServlet {
 						.add("update", "gameState")
 						.add("newValue", newGameStateUpdateJson)
 						.build();
+
 			HashSet<Session> webSocketSessions =
 					GameWebSocket.getSessionsRelatedToGameId(
 							gameManager.getGame().getId()
@@ -273,6 +222,7 @@ public class Home extends HttpServlet {
 								.sendText(
 										newGameStateUpdateJsonObject.toString()
 								);
+								
 					} catch (Exception e) {
 						logger.info(e.getMessage());
 					}

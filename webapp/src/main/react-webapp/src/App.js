@@ -1,88 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { w3cwebsocket as W3CWebSocket } from 'websocket';
+import React, { useState } from 'react';
+import useWebSocketClient from './WebSocketClient';
 import Board from './Board';
 import PlayerInfo from './PlayerInfo';
 import './App.css';
 
 function App() {
   const [game, setGame] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const [client, setClient] = useState(null);
   const [moves, setMoves] = useState([]);
-
   const playerId = window.playerId;
+  const gameId = window.gameId;
 
-  useEffect(() => {
-    if (!window.gameId) return;
-
-    const newClient = new W3CWebSocket(`wss://localhost:8443/webapp/game/${window.gameId}`);
-    // const newClient = new W3CWebSocket(`wss://caltuli.online/webapp_version_samya/game/${window.gameId}`);
-    // const newClient = new W3CWebSocket(`wss://caltuli.online/webapp/game/${window.gameId}`);
-
-    setClient(newClient);
-
-    newClient.onopen = () => {
-      console.log('WebSocket Client Connected');
-      setIsConnected(true);
-      const parsedState = JSON.parse(window.game);
-      console.log('Parsed initialState:', parsedState);
-      setGame(parsedState);
-    };
-
-    newClient.onmessage = function(event) {
-      const data = JSON.parse(event.data);
-      console.log("Mise à jour de l'état du jeu reçue", data);
-    
-      if (data.update === "secondPlayer") {
-        setGame(prevState => ({
-          ...prevState,
-          secondPlayer: JSON.parse(data.newValue)
-        }));
-      }
-      if (data.update === "gameState") {
-        setGame(prevState => ({
-          ...prevState,
-          gameState: JSON.parse(data.newValue)
-        }));
-      }
-      if (data.update === "colorsGrid") {
-        setGame(prevState => ({
-          ...prevState,
-          colorsGrid: {
-            ...prevState.colorsGrid,
-            [`${data.x}-${data.y}`]: data.color
-          }
-        }));
-      }
-
-      if (data.update === "move") {
-        // Ajout d'un nouveau mouvement à l'historique
-        setMoves(prevMoves => [...prevMoves, data]);
-        console.log("move => ", data);
-      }
-
-      if (data.update === "moveHistory") {
-        setMoves(data.moves); // Mettre à jour les mouvements avec l'historique reçu du serveur
-        console.log("moveHistory => ", data.moves);
-      }
-    };
-
-    newClient.onclose = () => {
-      console.log('WebSocket CLOSED');
-      setIsConnected(false);
-    };
-
-    newClient.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    return () => newClient.close();
-  }, []);
-
-  useEffect(() => {
-    console.log("Updated game:", game);
-  }, [game]);
-
+  const { isConnected, client } = useWebSocketClient(gameId, window.game, setGame, setMoves);
 
   const handlePlay = (columnIndex) => {
     console.log(`handlePlay is called for column ${columnIndex}.`);
@@ -102,7 +30,6 @@ function App() {
         console.log("Not your turn.");
       }
     }
-  
   };
 
   const formatColorsGrid = (colorsGrid) => {
@@ -112,11 +39,14 @@ function App() {
     const formattedGrid = {};
     for (const [key, value] of Object.entries(colorsGrid)) {
       formattedGrid[key] = value.toLowerCase();
+      console.log("formattedGrid[key] = ", formattedGrid[key].toLowerCase());
     }
     return formattedGrid;
   };
 
-  if (!game) return <div>Loading...</div>;
+
+  if (!game)
+    return <div>Loading</div>;
 
   // Extraire les noms des joueurs
   const gameStateString = JSON.stringify(game);
@@ -128,13 +58,15 @@ function App() {
   const isPlayer1Turn = game.gameState === 'WAIT_FIRST_PLAYER_MOVE';
   const isPlayer2Turn = game.gameState === 'WAIT_SECOND_PLAYER_MOVE';
 
-
   return (
     <div className="App">
       
-      {isConnected ? <p>Connected to server</p> : <p>Disconnected</p>}
-      
-      <p>Current Game: {JSON.stringify(game)}</p>
+      <div className="connection-status">
+        <div className={`status-light ${isConnected ? 'connected' : 'disconnected'}`} />
+        {isConnected ? 'Connected to server' : 'Disconnected'}
+      </div>
+
+      <p className="game-state">Current Game: {game.gameState.replace(/_/g, ' ').toLowerCase()}</p>
 
       {/* Affichage des joueurs dans des carrés */}
       <PlayerInfo
@@ -167,6 +99,7 @@ function App() {
           ))}
         </ul>
       </div>
+
     </div>
   );
 }
