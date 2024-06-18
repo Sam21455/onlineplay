@@ -2,4 +2,3 @@
 
 - [MovesDao](MovesDao-specification.md)
 - [movesDaoImpl](MovesDaoImpl-specification.md)
-
