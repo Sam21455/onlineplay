@@ -17,7 +17,7 @@ Le fichier `Cell.js` définit le composant React représentant une cellule indiv
   - La fonction callback appelée lorsque la cellule est cliquée.
 
 - **value** : `string`
-  - La valeur de la cellule, utilisée pour définir la classe CSS de la cellule. Les valeurs typiques peuvent être "playerA", "playerB", "red", "green", ou "empty".
+  - La valeur de la cellule, utilisée pour définir la classe CSS de la cellule. Les valeurs typiques peuvent être "red", "green", ou "empty".
 
 ## Fonctionnalités
 - Affiche une cellule interactive avec une classe CSS dynamique basée sur la valeur `value`.
