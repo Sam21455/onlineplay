@@ -1,41 +1,73 @@
 import React, { useState } from 'react';
-import useWebSocketClient from './WebSocketClient';
-import Board from './Board';
+import useGameWebSocketClient from './GameWebSocketClient';
 import PlayerInfo from './PlayerInfo';
+import Board from './Board';
 import './App.css';
 
+/**
+ * 
+ * Composant représentant l'interface du jeu Puissance 4, il permet de : 
+ *  - Gère l'état du jeu, 
+ *  - La connexion WebSocket, 
+ *  - Affiche le plateau du jeu,
+ *  - Affiche le nom des joueurs
+ *  - Indique le tour actuel  
+ * 
+ * Ainsi, on utilise ici les composants : Cell, Board, PlayerInfo. 
+ * ces composants utilisent des données extraites de WebSocketClient. 
+ * 
+ * 
+ * @component 
+ * 
+ * @returns {JSX.Element} - retourne l'interface du jeu Puissance 4 
+ * 
+*/
 function App() {
   const [game, setGame] = useState(null);
   const [moves, setMoves] = useState([]);
   const playerId = window.playerId;
   const gameId = window.gameId;
 
-  const { isConnected, client } = useWebSocketClient(gameId, window.game, setGame, setMoves);
+  const { isConnected, client } = useGameWebSocketClient(
+    gameId,
+    window.game,
+    setGame,
+    setMoves
+  );
 
+  // handlePlay - pour gérer le coup joué par le joueur
   const handlePlay = (columnIndex) => {
-    console.log(`handlePlay is called for column ${columnIndex}.`);
+    console.log(`handlePlay is called for column ${columnIndex}.`);    
     
     if (client && isConnected && game) {
       const isFirstPlayerTurn = game.gameState === 'WAIT_FIRST_PLAYER_MOVE';
-      const isSecondPlayerTurn = game.gameState === 'WAIT_SECOND_PLAYER_MOVE';
+      const isSecondPlayerTurn = game.gameState === 'WAIT_SECOND_PLAYER_MOVE'; 
+      console.log("game.gameState = ", game.gameState);
+
       if ((isFirstPlayerTurn && (playerId == game.firstPlayer.id)) ||
           (isSecondPlayerTurn && (playerId == game.secondPlayer.id))) {
+        
         const move = {
           update: 'colorsGrid',
           column: columnIndex,
           playerId: playerId
         };
+
         client.send(JSON.stringify(move));
-      } else {
+      } 
+
+      else {
         console.log("Not your turn.");
       }
     }
   };
 
+  // formatColorsGrid() - pour formater les données de la grille de couleurs  
   const formatColorsGrid = (colorsGrid) => {
     if (!colorsGrid) {
       return {};
     }
+
     const formattedGrid = {};
     for (const [key, value] of Object.entries(colorsGrid)) {
       formattedGrid[key] = value.toLowerCase();
@@ -47,6 +79,7 @@ function App() {
 
   if (!game)
     return <div>Loading</div>;
+
 
   // Extraire les noms des joueurs
   const gameStateString = JSON.stringify(game);
@@ -76,8 +109,10 @@ function App() {
         isPlayer2Turn={isPlayer2Turn}
       />
 
+      {/* Affichage du plateau du jeu Puissance 4 */} 
       {game && game.colorsGrid && (
-        <Board
+        <Board 
+          gameId={gameId}
           colorsGrid={formatColorsGrid(game.colorsGrid)}
           handlePlay={handlePlay}
           playerId={playerId}
@@ -85,8 +120,9 @@ function App() {
           firstPlayerId={game.firstPlayer.id}
           secondPlayerId={game.secondPlayer ? game.secondPlayer.id : null}
         />
-      )}
+      ) }
 
+      {/* Affichage de l'historique du jeu */}
       <div>
         <h3>Move History</h3>
         <ul>
@@ -96,12 +132,13 @@ function App() {
               played column {move.move} 
               at position ({move.x}, {move.y}) - {move.color}
             </li>
-          ))}
+          ) ) }
         </ul>
       </div>
-
+      
     </div>
   );
+
 }
 
 export default App;

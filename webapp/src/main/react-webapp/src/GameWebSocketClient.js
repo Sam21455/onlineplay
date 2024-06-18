@@ -1,8 +1,21 @@
-// GameWebSocketClient.js 
-
 import { useEffect, useState } from 'react';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
+/**
+ * 
+ * Hook utilisé pour permettre la communication avec le serveur du jeu identifié par `gameId`,
+ * gère les messages entrants pour mettre à jour l'état du jeu et les mouvements,
+ * et surveille l'état de la connexion.
+ *  
+ * @param {string} gameId - l'ID unique du jeu utilisé pour la connexion
+ * @param {object} initialGame - L'état initial du jeu
+ * @param {fonction} setGame - Fonction de mise à jour d'état pour mettre à jour l'état du jeu.
+ * @param {fonction} setMoves - Fonction de mise à jour d'état pour mettre à jour les mouvements du jeu.
+ * @returns {object} - Renvoie un objet contenant :
+ *  - 'isConnected' : une valeur booléan indiquant si le Web Socket est actuellement connecté.
+ *  - 'client' : l'instance du client Web Socket
+ * 
+*/
 function useGameWebSocketClient(gameId, initialGame, setGame, setMoves) {
   const [isConnected, setIsConnected] = useState(false);
   const [client, setClient] = useState(null);
@@ -19,67 +32,64 @@ function useGameWebSocketClient(gameId, initialGame, setGame, setMoves) {
     setClient(newClient);
 
     // onopen()
-      newClient.onopen = () => {
+    newClient.onopen = () => {
         console.log('WebSocket Client Connected');
           setIsConnected(true);
           const parsedState = JSON.parse(window.game);
           console.log('Parsed initialState:', parsedState);
           setGame(parsedState);
+    };
+
+    // onmessage()
+    // on utilise une table de correspondance (plutot des conditions "if").
+    newClient.onmessage = function(event) {
+      const data = JSON.parse(event.data);
+      console.log("Mise à jour de l'état du jeu reçue", data);
+
+      const updateHandlers = {
+        "secondPlayer": () => setGame(prevState => ({
+          ...prevState,
+          secondPlayer: JSON.parse(data.newValue)
+        })),
+        "gameState": () => setGame(prevState => ({
+          ...prevState,
+          gameState: JSON.parse(data.newValue)
+        })),
+        "colorsGrid": () => setGame(prevState => ({
+          ...prevState,
+          colorsGrid: {
+            ...prevState.colorsGrid,
+            [`${data.x}-${data.y}`]: data.color
+          }
+        })),
+        "move": () => {
+          setMoves(prevMoves => [...prevMoves, data]);
+          console.log("move => ", data);
+        },
+        "moveHistory": () => {
+          setMoves(data.moves);
+          console.log("moveHistory => ", data.moves);
+        }
       };
 
-      // onmessage()
-      newClient.onmessage = function(event) {
-        const data = JSON.parse(event.data);
-          console.log("Mise à jour de l'état du jeu reçue", data);
-      
-          if (data.update === "secondPlayer") {
-            setGame(prevState => ({
-                ...prevState,
-                secondPlayer: JSON.parse(data.newValue)
-              } ) );
-          }
+      const handler = updateHandlers[data.update];
+      if (handler) {
+        handler();
+      }
+    };
 
-          if (data.update === "gameState") {
-            setGame(prevState => ({
-                ...prevState,
-                gameState: JSON.parse(data.newValue)
-            } ) );
-          }
-        
-          if (data.update === "colorsGrid") {
-            setGame(prevState => ({
-                ...prevState,
-                colorsGrid: {
-                  ...prevState.colorsGrid,
-                  [`${data.x}-${data.y}`]: data.color
-                }
-            } ) );
-          }
-
-          if (data.update === "move") {
-            // Ajout d'un nouveau mouvement à l'historique
-            setMoves(prevMoves => [...prevMoves, data]);
-            console.log("move => ", data);
-          }
-
-          if (data.update === "moveHistory") {
-            setMoves(data.moves); // Mettre à jour les mouvements avec l'historique reçu du serveur
-            console.log("moveHistory => ", data.moves);
-          }
-        };      
-
-      // onclose()
+    // onclose()
     newClient.onclose = () => {
       console.log('WebSocket CLOSED');
         setIsConnected(false);
     };      
 
-      // onerror
-      newClient.onerror = (error) => {
-        console.error('WebSocket error:', error);
-      }; 
+    // onerror
+    newClient.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    }; 
 
-      return () => newClient.close();
+    return () => newClient.close();
   }, [gameId,
     setGame,
     setMoves]
@@ -93,5 +103,5 @@ function useGameWebSocketClient(gameId, initialGame, setGame, setMoves) {
 }; 
 
 
-export default useGameWebSocketClient;
 
+export default useGameWebSocketClient;

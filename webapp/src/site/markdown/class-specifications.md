@@ -10,3 +10,4 @@
 - [SessionCheckFilter](SessionCheckFilter-specification.md)
 - [SessionManagement](SessionManagement-specification.md)
 
+Pour accéder aux spécifications des composants React de l'application web, veuillez consulter le dossier [react-webapp](./markdown-react-webapp).

@@ -1,0 +1,54 @@
+
+.board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 480px;
+  height: 420px;
+  border-radius: 10%;
+  border: 1px solid grey;
+  background-color: rgb(0, 153, 255);
+  box-shadow: inset 0 -10px 0 grey;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border: 1px solid darkgray;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  box-shadow: inset 0 5px 0 grey;
+}
+
+.cell.null {
+  background-color: #fff;
+}
+
+.cell:hover {
+  background-color: lightgray;
+}
+
+.cell.red {
+  background-color: rgb(255, 51, 51);
+  box-shadow: inset 0 0px 0;
+}
+
+.cell.green {
+  background-color: rgb(153, 255, 102);
+  box-shadow: inset 0 0px 0;
+}

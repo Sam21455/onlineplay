@@ -29,7 +29,6 @@ import org.apache.logging.log4j.Logger;
 
 @ServerEndpoint("/game/{gameId}")
 public class GameWebSocket {
-    //private static final Map<Integer, HashSet<Session>> sessions = new ConcurrentHashMap<>();
     public static final Map<Integer, HashSet<Session>> sessions = new ConcurrentHashMap<>();
     private CurrentModel currentModel;
     private GameManager gameManager;
